@@ -10,7 +10,7 @@
 * RestAPI can be found in `classificationAPI.py` and can be run and tested using the following commands:
 
     `python classificationAPI.py`
-    `curl -X POST -F image=@nail.jpeg 'http://localhost:5000/predic'`
+    `curl -X POST -F image=@nail.jpeg 'http://localhost:5000/predict'`
 
 
 * Package requirments can be found in `requirements.txt` and can be installed using
