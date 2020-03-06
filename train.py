@@ -4,7 +4,10 @@ from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2
 import tensorflow as tf
 from datagenerator import create_df_dataset, create_tf_image_generator
 
-
+BATCH_SIZE = 5
+IMAGE_HEIGHT = 256 
+IMAGE_WIDTH = 256
+EPOCH = 10
 
 class CNN_model:
 
@@ -46,9 +49,9 @@ class CNN_model:
 
 if __name__ == "__main__":    
     df_train, df_test, train_size, test_size=create_df_dataset(test_size = 0.20)
-    train_data_gen, val_data_gen=create_tf_image_generator(df_train, df_test, 256, 256, 5)
+    train_data_gen, val_data_gen=create_tf_image_generator(df_train, df_test, IMAGE_HEIGHT, IMAGE_WIDTH, BATCH_SIZE)
 
-    model = CNN_model(256,256,5,train_size,test_size,10)
+    model = CNN_model(IMAGE_HEIGHT, IMAGE_WIDTH, BATCH_SIZE,train_size,test_size,EPCH)
     model.fit(train_data_gen,val_data_gen)
 
     # serialize model to JSON
