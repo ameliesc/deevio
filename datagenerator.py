@@ -2,6 +2,7 @@ from PIL import Image
 from os.path import join
 from math import floor
 import glob
+import os
 import pandas as pd 
 import tensorflow as tf 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -31,6 +32,7 @@ def create_df_dataset(test_size = 0.25):
     df = pd.DataFrame(list(zip(all_images, all_labels)), 
                columns =['images', 'labels']) 
 
+    
     df = df.sample(frac = 1) #shuffle
     train, test = train_test_split(df, test_size=test_size)
     return train,test,train.shape[0],test.shape[0]
@@ -42,7 +44,7 @@ def create_tf_image_generator(df_train,df_test, IMAGE_HEIGHT, IMAGE_WIDTH, BATCH
         directory=".\train_imgs",
         x_col='images',
         y_col = 'labels',
-        target_size=IMAGE_HEIGHT), IMAGE_WIDTH),
+        target_size= (IMAGE_HEIGHT, IMAGE_WIDTH),
         colormode = 'grayscale',
         batch_size = BATCH_SIZE,
         class_mode='raw')
@@ -51,7 +53,7 @@ def create_tf_image_generator(df_train,df_test, IMAGE_HEIGHT, IMAGE_WIDTH, BATCH
         directory=".\val_imgs",
         x_col='images',
         y_col = 'labels',
-        target_size=IMAGE_HEIGHT,IMAGE_WIDTH),
+        target_size= (IMAGE_HEIGHT,IMAGE_WIDTH),
         colormode = 'grayscale',
         batch_size = BATCH_SIZE,
         class_mode='raw')

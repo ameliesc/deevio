@@ -42,7 +42,7 @@ def prepare_image(image, target):
 def predict():
     # initialize the data dictionary that will be returned from the
     # view
-    data = {"success": False}
+    data = {"prediction" : None}
 
     
     # ensure an image was properly uploaded to our endpoint
@@ -57,7 +57,7 @@ def predict():
 
             # classify the input image and then initialize the list
             # of predictions to return to the client
-            preds = model.predict(image)
+            prediction = model.predict(image)
 
             # Output 'Negative' or 'Positive' along with the score
             if prediction == 0:
@@ -66,7 +66,6 @@ def predict():
                 pred = 'Good'
 
             # indicate that the request was a success
-            data["success"] = True
             data["prediction"] = pred    # return the data dictionary as a JSON response
     return flask.jsonify(data)
 
